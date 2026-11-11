@@ -1,0 +1,135 @@
+{
+  "apiVersion": { "major": 1, "minor": 0 },
+  "contentTypes": [
+    {
+      "id": "H5P.QuestionSet",
+      "name": "Quiz (Question Set)",
+      "summary": "Create a sequence of multiple choice questions into a unified quiz with score overview.",
+      "description": "Full quiz suite packaging multiple MCQ questions into one test with progress bar, per-question score feedback, and final score summary.",
+      "version": { "major": 2, "minor": 0, "patch": 8 },
+      "isCore": true,
+      "category": "Assessment",
+      "icon": "quiz"
+    },
+    {
+      "id": "H5P.MultiChoice",
+      "name": "Multiple Choice",
+      "summary": "Create flexible multiple-choice questions with single or multiple answers.",
+      "description": "Standard quiz question type allowing learners to pick one or more options with instant feedback.",
+      "version": { "major": 1, "minor": 14, "patch": 2 },
+      "isCore": true,
+      "category": "Assessment",
+      "icon": "quiz"
+    },
+    {
+      "id": "H5P.Dialogcards",
+      "name": "Dialog Cards / Flashcards",
+      "summary": "Create engaging interactive flashcards for vocabulary and concept recall.",
+      "description": "Turn-based cards with 3D flip animation, pronunciation tips, and self-assessment buttons.",
+      "version": { "major": 1, "minor": 8, "patch": 1 },
+      "isCore": true,
+      "category": "Drill & Practice",
+      "icon": "view_carousel"
+    },
+    {
+      "id": "H5P.Blanks",
+      "name": "Fill in the Blanks",
+      "summary": "Create cloze tests where learners fill in missing words in a text passage.",
+      "description": "Supports multiple accepted solutions, case sensitivity toggles, and auto-checking.",
+      "version": { "major": 1, "minor": 12, "patch": 0 },
+      "isCore": true,
+      "category": "Assessment",
+      "icon": "edit_note"
+    },
+    {
+      "id": "H5P.TrueFalse",
+      "name": "True / False Question",
+      "summary": "Create simple, high-impact binary knowledge check questions.",
+      "description": "Clean yes/no or true/false statements with configurable feedback for correct and wrong answers.",
+      "version": { "major": 1, "minor": 8, "patch": 2 },
+      "isCore": true,
+      "category": "Assessment",
+      "icon": "check_circle"
+    },
+    {
+      "id": "H5P.SingleChoiceSet",
+      "name": "Single Choice Set",
+      "summary": "Rapid succession of multiple choice questions with acoustic feedback.",
+      "description": "Fast-paced questions ideal for end-of-lesson reinforcement and speed tests.",
+      "version": { "major": 1, "minor": 11, "patch": 3 },
+      "isCore": true,
+      "category": "Assessment",
+      "icon": "bolt"
+    },
+    {
+      "id": "H5P.DragText",
+      "name": "Drag the Words",
+      "summary": "Interactive sentences where learners drag words into corresponding blanks.",
+      "description": "Tactile sentence completion with snap-to-target word chips and score computation.",
+      "version": { "major": 1, "minor": 8, "patch": 5 },
+      "isCore": true,
+      "category": "Language & Grammar",
+      "icon": "drag_indicator"
+    },
+    {
+      "id": "H5P.MarkTheWords",
+      "name": "Mark the Words",
+      "summary": "Learners click on words in a paragraph to identify parts of speech or errors.",
+      "description": "Text highlighting activity where learners select correct words matching a prompt.",
+      "version": { "major": 1, "minor": 11, "patch": 1 },
+      "isCore": true,
+      "category": "Language & Grammar",
+      "icon": "highlight"
+    },
+    {
+      "id": "H5P.InteractiveVideo",
+      "name": "Interactive Video",
+      "summary": "Enrich videos with interactive quizzes, bookmarks, and links.",
+      "description": "Embed questions, pop-up text, and interactive tasks directly on top of video playback.",
+      "version": { "major": 1, "minor": 22, "patch": 0 },
+      "isCore": false,
+      "category": "Multimedia",
+      "icon": "smart_display"
+    },
+    {
+      "id": "H5P.CoursePresentation",
+      "name": "Course Presentation",
+      "summary": "Create multi-slide presentations with embedded interactive questions.",
+      "description": "Slide decks combining text, images, video, and integrated mini-quizzes on each slide.",
+      "version": { "major": 1, "minor": 22, "patch": 4 },
+      "isCore": false,
+      "category": "Presentations",
+      "icon": "slideshow"
+    },
+    {
+      "id": "H5P.MemoryGame",
+      "name": "Memory Game",
+      "summary": "Create card-matching memory games with images and audio.",
+      "description": "Classic pair-matching game challenging learners to match related pictures or terms.",
+      "version": { "major": 1, "minor": 3, "patch": 2 },
+      "isCore": false,
+      "category": "Games",
+      "icon": "grid_view"
+    },
+    {
+      "id": "H5P.BranchingScenario",
+      "name": "Branching Scenario",
+      "summary": "Create choose-your-own-adventure decision tree simulations.",
+      "description": "Dilemma-based branching scenarios where user decisions influence subsequent narrative.",
+      "version": { "major": 1, "minor": 7, "patch": 0 },
+      "isCore": false,
+      "category": "Simulations",
+      "icon": "alt_route"
+    },
+    {
+      "id": "H5P.DragQuestion",
+      "name": "Drag and Drop",
+      "summary": "Drag image pieces and text labels onto custom canvas drop-zones.",
+      "description": "Diagram labeling, anatomy tagging, and freeform spatial classification exercises.",
+      "version": { "major": 1, "minor": 14, "patch": 1 },
+      "isCore": false,
+      "category": "Assessment",
+      "icon": "open_with"
+    }
+  ]
+}

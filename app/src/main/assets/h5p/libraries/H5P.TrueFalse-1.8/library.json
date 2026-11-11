@@ -1,0 +1,16 @@
+{
+  "title": "True/False Question",
+  "machineName": "H5P.TrueFalse",
+  "majorVersion": 1,
+  "minorVersion": 8,
+  "patchVersion": 2,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Create a simple True or False question with custom feedback.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.Question", "majorVersion": 1, "minorVersion": 4 },
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 },
+    { "machineName": "FontAwesome", "majorVersion": 4, "minorVersion": 5 }
+  ]
+}

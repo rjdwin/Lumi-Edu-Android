@@ -383,10 +383,15 @@ fun ActivityCard(
                             .clip(RoundedCornerShape(6.dp))
                             .background(
                                 when (activity.type) {
+                                    ActivityType.QUESTION_SET -> LumiTeal.copy(alpha = 0.15f)
                                     ActivityType.MULTI_CHOICE -> LumiTeal.copy(alpha = 0.15f)
                                     ActivityType.FLASHCARDS -> LumiAmber.copy(alpha = 0.18f)
                                     ActivityType.BLANKS -> SuccessGreen.copy(alpha = 0.15f)
-                                    ActivityType.IMPORTED -> MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                                    ActivityType.SINGLE_CHOICE_SET -> LumiTeal.copy(alpha = 0.15f)
+                                    ActivityType.TRUE_FALSE -> SuccessGreen.copy(alpha = 0.15f)
+                                    ActivityType.DRAG_TEXT -> LumiAmber.copy(alpha = 0.18f)
+                                    ActivityType.MARK_WORDS -> LumiTeal.copy(alpha = 0.15f)
+                                    else -> MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
                                 }
                             )
                             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -396,10 +401,15 @@ fun ActivityCard(
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             color = when (activity.type) {
+                                ActivityType.QUESTION_SET -> LumiTeal
                                 ActivityType.MULTI_CHOICE -> LumiTeal
                                 ActivityType.FLASHCARDS -> Color(0xFFD97706)
                                 ActivityType.BLANKS -> SuccessGreen
-                                ActivityType.IMPORTED -> MaterialTheme.colorScheme.primary
+                                ActivityType.SINGLE_CHOICE_SET -> LumiTeal
+                                ActivityType.TRUE_FALSE -> SuccessGreen
+                                ActivityType.DRAG_TEXT -> Color(0xFFD97706)
+                                ActivityType.MARK_WORDS -> LumiTeal
+                                else -> MaterialTheme.colorScheme.primary
                             }
                         )
                     }

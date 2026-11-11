@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.Verified
+import com.example.data.repository.HubContentType
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -77,6 +78,7 @@ fun LibraryManagerScreen(
     var selectedFilter by remember { mutableStateOf("All") }
     var selectedLibraryForDetails by remember { mutableStateOf<H5PLibraryEntity?>(null) }
     var libraryToDelete by remember { mutableStateOf<H5PLibraryEntity?>(null) }
+    val hubCatalog by viewModel.hubCatalog.collectAsState()
 
     val harvestLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -165,7 +167,7 @@ fun LibraryManagerScreen(
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
-                                text = "Library Harvester & Updater",
+                                text = "Library Harvester & Hub Manager",
                                 style = MaterialTheme.typography.titleSmall.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.primary
@@ -174,7 +176,7 @@ fun LibraryManagerScreen(
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "If an activity requires a new or updated library, simply select any .h5p file containing that library. Lumi will automatically extract, validate, and store it in your offline repository.",
+                            text = "Core libraries are pre-packaged offline in the app. You can expand your catalog with any H5P content type by selecting an existing .h5p file to harvest its libraries directly into storage.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -197,11 +199,15 @@ fun LibraryManagerScreen(
             // Filter Chips
             item {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("All", "Bundled", "Harvested").forEach { filter ->
+                    listOf("All (${libraries.size})", "Bundled", "Harvested", "H5P Hub Catalog").forEach { filterKey ->
+                        val filterLabel = when (filterKey) {
+                            "All (${libraries.size})" -> "All"
+                            else -> filterKey
+                        }
                         FilterChip(
-                            selected = selectedFilter == filter,
-                            onClick = { selectedFilter = filter },
-                            label = { Text(filter) },
+                            selected = selectedFilter == filterLabel,
+                            onClick = { selectedFilter = filterLabel },
+                            label = { Text(filterKey) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = MaterialTheme.colorScheme.primary,
                                 selectedLabelColor = MaterialTheme.colorScheme.onPrimary
@@ -211,13 +217,21 @@ fun LibraryManagerScreen(
                 }
             }
 
-            // Libraries List
-            items(filteredLibraries, key = { it.id }) { lib ->
-                LibraryItemCard(
-                    library = lib,
-                    onClick = { selectedLibraryForDetails = lib },
-                    onDelete = { libraryToDelete = lib }
-                )
+            if (selectedFilter == "H5P Hub Catalog") {
+                items(hubCatalog, key = { it.id }) { item ->
+                    HubCatalogItemCard(
+                        item = item,
+                        onHarvest = { harvestLauncher.launch(arrayOf("*/*")) }
+                    )
+                }
+            } else {
+                items(filteredLibraries, key = { it.id }) { lib ->
+                    LibraryItemCard(
+                        library = lib,
+                        onClick = { selectedLibraryForDetails = lib },
+                        onDelete = { libraryToDelete = lib }
+                    )
+                }
             }
         }
     }
@@ -382,6 +396,108 @@ fun LibraryItemCard(
                         tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(20.dp)
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun HubCatalogItemCard(
+    item: HubContentType,
+    onHarvest: () -> Unit
+) {
+    Card(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.padding(14.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(
+                            if (item.isInstalled) SuccessGreen.copy(alpha = 0.12f)
+                            else MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (item.isInstalled) Icons.Default.Verified else Icons.Default.Extension,
+                        contentDescription = null,
+                        tint = if (item.isInstalled) SuccessGreen else MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = item.name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
+                    )
+                    Text(
+                        text = "${item.id} • v${item.version}",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(
+                            if (item.isInstalled) SuccessGreen.copy(alpha = 0.12f)
+                            else LumiAmber.copy(alpha = 0.15f)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = if (item.isInstalled) "Available Offline" else "Harvestable",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (item.isInstalled) SuccessGreen else Color(0xFFD97706)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = item.summary,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = item.category,
+                        fontSize = 10.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                if (!item.isInstalled) {
+                    OutlinedButton(
+                        onClick = onHarvest,
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+                    ) {
+                        Icon(Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(14.dp))
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("Harvest from .h5p", fontSize = 11.sp)
+                    }
                 }
             }
         }

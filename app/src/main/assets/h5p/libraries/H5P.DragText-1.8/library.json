@@ -1,0 +1,15 @@
+{
+  "title": "Drag the Words",
+  "machineName": "H5P.DragText",
+  "majorVersion": 1,
+  "minorVersion": 8,
+  "patchVersion": 5,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Drag words or phrases into corresponding empty dropspaces in a sentence.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.Question", "majorVersion": 1, "minorVersion": 4 },
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 }
+  ]
+}

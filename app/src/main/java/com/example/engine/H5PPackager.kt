@@ -150,12 +150,7 @@ class H5PPackager(
             val title = manifestObj.optString("title", filenameHint.replace(".h5p", "").replace(".zip", ""))
             val mainLib = manifestObj.optString("mainLibrary", "H5P.MultiChoice")
             
-            val type = when {
-                mainLib.contains("MultiChoice", ignoreCase = true) -> ActivityType.MULTI_CHOICE
-                mainLib.contains("Dialogcards", ignoreCase = true) -> ActivityType.FLASHCARDS
-                mainLib.contains("Blanks", ignoreCase = true) -> ActivityType.BLANKS
-                else -> ActivityType.IMPORTED
-            }
+            val type = ActivityType.fromLibrary(mainLib)
 
             val activity = ActivityEntity(
                 id = UUID.randomUUID().toString(),
@@ -181,12 +176,30 @@ class H5PPackager(
      * Exports a native ActivityEntity as a standard, portable .h5p ZIP package
      * bundled with h5p.json, content/content.json, and all required library folders.
      */
+    /**
+     * Exports a native ActivityEntity as a standard, portable .h5p ZIP package
+     * bundled with h5p.json, content/content.json, and all required library folders.
+     */
     fun exportActivityToH5P(activity: ActivityEntity): File {
         val sanitizedTitle = activity.title.replace("[^a-zA-Z0-9_-]".toRegex(), "_")
         val outFile = File(exportsDir, "$sanitizedTitle.h5p")
         if (outFile.exists()) outFile.delete()
 
-        ZipOutputStream(BufferedOutputStream(FileOutputStream(outFile))).use { zipOut ->
+        FileOutputStream(outFile).use { fos ->
+            writeActivityToZipStream(activity, fos)
+        }
+        return outFile
+    }
+
+    /**
+     * Writes standard .h5p package data directly to an OutputStream (e.g. Storage Access Framework URI).
+     */
+    fun exportActivityToStream(activity: ActivityEntity, outputStream: java.io.OutputStream) {
+        writeActivityToZipStream(activity, outputStream)
+    }
+
+    private fun writeActivityToZipStream(activity: ActivityEntity, outputStream: java.io.OutputStream) {
+        ZipOutputStream(BufferedOutputStream(outputStream)).use { zipOut ->
             // 1. Write h5p.json
             val h5pEntry = ZipEntry("h5p.json")
             zipOut.putNextEntry(h5pEntry)
@@ -260,8 +273,6 @@ class H5PPackager(
                 }
             }
         }
-
-        return outFile
     }
 
     private fun parseLibraryJson(jsonStr: String, folderName: String): H5PLibraryEntity? {

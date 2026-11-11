@@ -1,0 +1,17 @@
+{
+  "title": "Quiz (Question Set)",
+  "machineName": "H5P.QuestionSet",
+  "majorVersion": 2,
+  "minorVersion": 0,
+  "patchVersion": 8,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Create a sequence of multiple choice questions, true/false, and other interactive tasks with score overview.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.Question", "majorVersion": 1, "minorVersion": 4 },
+    { "machineName": "H5P.MultiChoice", "majorVersion": 1, "minorVersion": 14 },
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 },
+    { "machineName": "FontAwesome", "majorVersion": 4, "minorVersion": 5 }
+  ]
+}
