@@ -19,14 +19,18 @@
   }
 
   function notifyBridge(event, data) {
-    if (window.LumiBridge) {
-      if (event === 'score' && window.LumiBridge.onScore) {
-        window.LumiBridge.onScore(data.score, data.maxScore);
-      } else if (event === 'progress' && window.LumiBridge.onProgress) {
-        window.LumiBridge.onProgress(data.current, data.total);
-      } else if (event === 'loaded' && window.LumiBridge.onActivityLoaded) {
-        window.LumiBridge.onActivityLoaded(data.title, data.library);
+    try {
+      if (window.LumiBridge) {
+        if (event === 'score' && window.LumiBridge.onScore) {
+          window.LumiBridge.onScore(Number(data.score) || 0, Number(data.maxScore) || 0);
+        } else if (event === 'progress' && window.LumiBridge.onProgress) {
+          window.LumiBridge.onProgress(Number(data.current) || 0, Number(data.total) || 0);
+        } else if (event === 'loaded' && window.LumiBridge.onActivityLoaded) {
+          window.LumiBridge.onActivityLoaded(data.title || '', data.library || '');
+        }
       }
+    } catch (err) {
+      console.warn("LumiBridge notification failed safely:", err);
     }
   }
 

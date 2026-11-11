@@ -70,28 +70,40 @@ import com.example.ui.theme.SuccessGreen
 import org.json.JSONObject
 
 class LumiJsBridge(
-    private val onReady: () -> Unit,
-    private val onScore: (Int, Int) -> Unit,
-    private val onProgress: (Int, Int) -> Unit
+    private val onReadyCallback: () -> Unit,
+    private val onScoreCallback: (Int, Int) -> Unit,
+    private val onProgressCallback: (Int, Int) -> Unit
 ) {
     @JavascriptInterface
     fun onRunnerReady() {
-        onReady()
+        try {
+            onReadyCallback()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 
     @JavascriptInterface
     fun onScore(score: Int, maxScore: Int) {
-        onScore(score, maxScore)
+        try {
+            onScoreCallback(score, maxScore)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 
     @JavascriptInterface
     fun onProgress(current: Int, total: Int) {
-        onProgress(current, total)
+        try {
+            onProgressCallback(current, total)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 
     @JavascriptInterface
-    fun onActivityLoaded(title: String, library: String) {
-        // Activity initialized
+    fun onActivityLoaded(title: String?, library: String?) {
+        // Activity initialized safely
     }
 }
 
@@ -238,29 +250,29 @@ fun PlayerScreen(
                                 val escapedManifest = JSONObject.quote(activity.h5pJson)
                                 val escapedContent = JSONObject.quote(activity.contentJson)
                                 view?.evaluateJavascript(
-                                    "window.loadH5P($escapedManifest, $escapedContent);",
+                                    "if (typeof window.loadH5P === 'function') { window.loadH5P($escapedManifest, $escapedContent); }",
                                     null
                                 )
                             }
                         }
 
                         val bridge = LumiJsBridge(
-                            onReady = {
+                            onReadyCallback = {
                                 post {
                                     val escapedManifest = JSONObject.quote(activity.h5pJson)
                                     val escapedContent = JSONObject.quote(activity.contentJson)
                                     evaluateJavascript(
-                                        "window.loadH5P($escapedManifest, $escapedContent);",
+                                        "if (typeof window.loadH5P === 'function') { window.loadH5P($escapedManifest, $escapedContent); }",
                                         null
                                     )
                                 }
                             },
-                            onScore = { score, max ->
+                            onScoreCallback = { score, max ->
                                 post {
                                     viewModel.onScoreReceived(score, max)
                                 }
                             },
-                            onProgress = { cur, tot ->
+                            onProgressCallback = { cur, tot ->
                                 // Optional progress hook
                             }
                         )
