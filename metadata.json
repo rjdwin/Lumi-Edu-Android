@@ -1,0 +1,6 @@
+{
+  "name": "Lumi Mobile",
+  "description": "Create, edit, harvest libraries, and play interactive H5P learning activities offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

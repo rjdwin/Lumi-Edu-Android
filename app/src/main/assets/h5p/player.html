@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lumi H5P Player</title>
+  <link rel="stylesheet" href="h5p-core.css">
+</head>
+<body>
+  <div id="h5p-container" class="h5p-container">
+    <div id="h5p-header" class="h5p-header">
+      <div class="h5p-badge" id="h5p-type-badge">H5P Activity</div>
+      <h1 class="h5p-title" id="h5p-title">Loading Activity...</h1>
+      <div class="h5p-description" id="h5p-desc"></div>
+    </div>
+    
+    <div id="h5p-content" class="h5p-content-area">
+      <!-- Activity dynamically injected here -->
+      <div class="h5p-loading-spinner">
+        <div class="spinner"></div>
+        <p>Initializing interactive package...</p>
+      </div>
+    </div>
+
+    <div id="h5p-footer" class="h5p-footer">
+      <div class="h5p-score-bar" id="score-bar" style="display: none;">
+        <span class="score-label">Score:</span>
+        <span class="score-value" id="score-text">0 / 0</span>
+      </div>
+      <div class="h5p-branding">Powered by Lumi Mobile</div>
+    </div>
+  </div>
+
+  <script src="h5p-core.js"></script>
+</body>
+</html>

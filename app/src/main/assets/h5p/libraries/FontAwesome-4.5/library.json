@@ -1,0 +1,11 @@
+{
+  "title": "Font Awesome",
+  "machineName": "FontAwesome",
+  "majorVersion": 4,
+  "minorVersion": 5,
+  "patchVersion": 4,
+  "runnable": 0,
+  "author": "Dave Gandy",
+  "license": "OFL",
+  "description": "Icon font for H5P interactive learning components."
+}

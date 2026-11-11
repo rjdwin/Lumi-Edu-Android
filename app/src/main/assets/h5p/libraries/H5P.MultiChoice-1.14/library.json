@@ -1,0 +1,16 @@
+{
+  "title": "Multiple Choice",
+  "machineName": "H5P.MultiChoice",
+  "majorVersion": 1,
+  "minorVersion": 14,
+  "patchVersion": 2,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Standard multiple choice question with single or multiple answers.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.Question", "majorVersion": 1, "minorVersion": 4 },
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 },
+    { "machineName": "FontAwesome", "majorVersion": 4, "minorVersion": 5 }
+  ]
+}

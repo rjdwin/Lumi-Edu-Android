@@ -1,0 +1,15 @@
+{
+  "title": "Fill in the Blanks",
+  "machineName": "H5P.Blanks",
+  "majorVersion": 1,
+  "minorVersion": 12,
+  "patchVersion": 0,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Fill in the missing words in texts with instant evaluation.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.Question", "majorVersion": 1, "minorVersion": 4 },
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 }
+  ]
+}

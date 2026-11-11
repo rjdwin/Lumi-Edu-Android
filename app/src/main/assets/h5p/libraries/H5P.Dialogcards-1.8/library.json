@@ -1,0 +1,15 @@
+{
+  "title": "Dialog Cards / Flashcards",
+  "machineName": "H5P.Dialogcards",
+  "majorVersion": 1,
+  "minorVersion": 8,
+  "patchVersion": 1,
+  "runnable": 1,
+  "author": "Joubel",
+  "license": "MIT",
+  "description": "Flashcard decks with front and back flips for memorization and language learning.",
+  "preloadedDependencies": [
+    { "machineName": "H5P.JoubelUI", "majorVersion": 1, "minorVersion": 3 },
+    { "machineName": "FontAwesome", "majorVersion": 4, "minorVersion": 5 }
+  ]
+}
