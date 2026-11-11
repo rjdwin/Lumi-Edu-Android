@@ -1287,7 +1287,7 @@ fun shareTemplateCsv(context: Context, file: File) {
     try {
         val uri = FileProvider.getUriForFile(
             context,
-            "com.aistudio.lumimobile.eduxyz.fileprovider",
+            "${context.packageName}.fileprovider",
             file
         )
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
